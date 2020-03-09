@@ -149,7 +149,7 @@ ESX.RegisterServerCallback('esx_advancedgarage:storeVehicle', function (source, 
 		if result[1] ~= nil then
 			local originalvehprops = json.decode(result[1].vehicle)
 			if originalvehprops.model == vehiclemodel then
-				MySQL.Async.execute('UPDATE owned_vehicles SET vehicle = @vehicle WHERE owner = @owner AND plate = @plate', {
+				MySQL.Async.execute('UPDATE owned_vehicles SET vehicle = @vehicle , vehname = @vehiclemodel WHERE owner = @owner AND plate = @plate', {
 					['@owner'] = xPlayer.identifier,
 					['@vehicle'] = json.encode(vehicleProps),
 					['@plate'] = vehicleProps.plate
@@ -192,7 +192,7 @@ ESX.RegisterServerCallback('esx_advancedgarage:getOutOwnedAircrafts', function(s
 		['@Type'] = 'aircraft',
 		['@job'] = 'civ',
 		['@stored'] = false
-	}, function(data) 
+	}, function(data)
 		for _,v in pairs(data) do
 			local vehicle = json.decode(v.vehicle)
 			table.insert(ownedAircrafts, vehicle)
@@ -211,7 +211,7 @@ ESX.RegisterServerCallback('esx_advancedgarage:getOutOwnedBoats', function(sourc
 		['@Type'] = 'boat',
 		['@job'] = 'civ',
 		['@stored'] = false
-	}, function(data) 
+	}, function(data)
 		for _,v in pairs(data) do
 			local vehicle = json.decode(v.vehicle)
 			table.insert(ownedBoats, vehicle)
@@ -230,7 +230,7 @@ ESX.RegisterServerCallback('esx_advancedgarage:getOutOwnedCars', function(source
 		['@Type'] = 'car',
 		['@job'] = 'civ',
 		['@stored'] = false
-	}, function(data) 
+	}, function(data)
 		for _,v in pairs(data) do
 			local vehicle = json.decode(v.vehicle)
 			table.insert(ownedCars, vehicle)
@@ -248,7 +248,7 @@ ESX.RegisterServerCallback('esx_advancedgarage:getOutOwnedPolicingCars', functio
 		['@owner'] = xPlayer.identifier,
 		['@job'] = 'police',
 		['@stored'] = false
-	}, function(data) 
+	}, function(data)
 		for _,v in pairs(data) do
 			local vehicle = json.decode(v.vehicle)
 			table.insert(ownedPolicingCars, vehicle)
@@ -266,7 +266,7 @@ ESX.RegisterServerCallback('esx_advancedgarage:getOutOwnedAmbulanceCars', functi
 		['@owner'] = xPlayer.identifier,
 		['@job'] = 'ambulance',
 		['@stored'] = false
-	}, function(data) 
+	}, function(data)
 		for _,v in pairs(data) do
 			local vehicle = json.decode(v.vehicle)
 			table.insert(ownedAmbulanceCars, vehicle)
